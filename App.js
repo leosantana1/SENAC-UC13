@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 
 export default function App() {
   // Mapeamento de teclas
-  const buttons = ['LIMPAR', 'DEL', '%', '/', 7, 8, 9, "x", 6, 5, 4, '-', 3, 2, 1, '+', 0, '.', '+/-', '=']
+  const buttons = ['LIMPAR', 'DEL', '%', '/', 9, 8, 7, "x", 6, 5, 4, '-', 3, 2, 1, '+', 0, '.', '+/-', '=']
 
   const [currentNumber, setCurrentNumber] = useState("")
   const [lastNumber, setLastNumber] = useState("")
@@ -25,10 +25,10 @@ export default function App() {
         setCurrentNumber((fistNumber - lastNumber).toString())
         return
       case 'x':
-        setCurrentNumber((fistNumber + lastNumber).toString())
+        setCurrentNumber((fistNumber * lastNumber).toString())
         return
       case '/':
-        setCurrentNumber((fistNumber - lastNumber).toString())
+        setCurrentNumber((fistNumber / lastNumber).toString())
         return
     }
   }
@@ -66,63 +66,63 @@ export default function App() {
       <View style={styles.results}>
         <Text style={styles.historyText}>{lastNumber}</Text>
         <Text style={styles.resultText}>{currentNumber}</Text>
-        <View>
+      </View>
 
-          {/* Area onde os botões são exibidos*/}
-          <View style={styles.buttons}>
+      {/* Area onde os botões são exibidos*/}
+      <View style={styles.buttons}>
 
-            {buttons.map((button) =>
-              button === '=' ? // Mapeamento do botão =
-                <TouchableOpacity onPress={() => handleInput(button)} key={button} style={[styles.button, { backgroundColor: '#3dd0e3' }]}>
-                  <Text style={[styles.textButton, { color: "white", fontSize: 30 }]}>{button}</Text>
-                </TouchableOpacity>
-                : // Mapeamento dos outros botões
-                <TouchableOpacity onPress={() => handleInput(button)} key={button} style={styles.button}>
-                  <Text style={[styles.textButton, { color: typeof (button) === 'number' ? 'black' : '#0093a6' }]}>{button}</Text>
-                </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        );
+        {buttons.map((button) =>
+          button === '=' ? // Mapeamento do botão =
+            <TouchableOpacity onPress={() => handleInput(button)} key={button} style={[styles.button, { backgroundColor: '#3dd0e3' }]}>
+              <Text style={[styles.textButton, { color: "white", fontSize: 30 }]}>{button}</Text>
+            </TouchableOpacity>
+            : // Mapeamento dos outros botões
+            <TouchableOpacity onPress={() => handleInput(button)} key={button} style={styles.button}>
+              <Text style={[styles.textButton, { color: typeof (button) === 'number' ? 'black' : '#0093a6' }]}>{button}</Text>
+            </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
 }
 
-        // Estilização
-        const styles = StyleSheet.create({
-          container: {
-          flex: 1,
+// Estilização
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
   },
-        results: {
-          flex: 2,
-        justifyContent: "center",
-        backgroundColor: "#f5f5f5"
+  results: {
+    flex: 2,
+    justifyContent: "center",
+    backgroundColor: "#f5f5f5"
   },
-        resultText: {
-          color: "#282F38",
-        fontSize: 32,
-        fontWeight: "bold",
-        padding: 12,
-        textAlign: "right"
+  resultText: {
+    color: "#282F38",
+    fontSize: 32,
+    fontWeight: "bold",
+    padding: 12,
+    textAlign: "right"
   },
-        historyText:{
-          color: "#7c7c7c",
-        fontSize: 20,
-        marginRight: 10,
-        alignSelf: 'flex-end',
+  historyText: {
+    color: "#7c7c7c",
+    fontSize: 20,
+    marginRight: 10,
+    alignSelf: 'flex-end',
   },
-        buttons: {
-          flexDirection: 'row',
-        flexWrap: 'wrap',
+  buttons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-        button: {
-          backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: 90,
-        minHeight: 90,
-        flex: 2,
+  button: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 90,
+    minHeight: 90,
+    flex: 2,
   },
-        textButton: {
-          color: "#7c7c7c",
-        fontSize: 20,
-  } 
+  textButton: {
+    color: "#7c7c7c",
+    fontSize: 20,
+  }
 });
